@@ -21,7 +21,7 @@ correct_get_block_1000_response = {
 test_request = {
     'id': 1,
     'jsonrpc': '2.0',
-    'method': 'steemd.fake_method'
+    'method': 'eznode.fake_method'
 }
 
 error_response1 = {'id': 1, 'jsonrpc': '2.0', 'error': {
@@ -57,7 +57,7 @@ utf8_request = {"jsonrpc": "2.0",
                                  "comment",
                                  {"parent_author": "",
                                   "parent_permlink": "cn",
-                                  "author": "sbd2paypal",
+                                  "author": "EUSD2paypal",
                                   "permlink": "gvvay",
                                   "title": "废青废老，建宗 |谷哥点名#11",
                                   "body": "「又遲到了！」年輕人醒來的時候，已時八時三十分。"

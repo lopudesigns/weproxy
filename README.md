@@ -10,14 +10,14 @@ Content-Type: application/json
 
 {
   "method": "sbds.count_operations",
-  "params": {"operation":"account_creates"},
+  "params": {"operation":"accountCreates"},
   "jsonrpc": "2.0",
   "id": 1
 }
 ```
 
 ### Default Namespace
-Any json-rpc method with no period in the method name is presumed to be in the "steemd" namespace and will be forwarded to a steemd endpoint:
+Any json-rpc method with no period in the method name is presumed to be in the "eznode" namespace and will be forwarded to a eznode endpoint:
 
 ```
 POST / HTTP/1.1

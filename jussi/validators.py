@@ -34,8 +34,8 @@ NONE_TYPE = type(None)
 ID_TYPES = (int, str, float, NONE_TYPE)
 PARAMS_TYPES = (list, dict, NONE_TYPE)
 
-CUSTOM_JSON_SIZE_LIMIT = 2000
-CUSTOM_JSON_FOLLOW_RATE = 2
+customJson_SIZE_LIMIT = 2000
+customJson_FOLLOW_RATE = 2
 
 BROADCAST_TRANSACTION_METHODS = {
     'broadcast_transaction',
@@ -112,17 +112,17 @@ def is_valid_non_error_jussi_response(
 
 
 def is_get_block_request(request: JSONRPCRequest) -> bool:
-    return request.urn.namespace in ('steemd', 'appbase') and request.urn.method == 'get_block'
+    return request.urn.namespace in ('eznode', 'appbase') and request.urn.method == 'get_block'
 
 
 def is_get_block_header_request(request: JSONRPCRequest) -> bool:
     return request.urn.namespace in (
-        'steemd', 'appbase') and request.urn.method == 'get_block_header'
+        'eznode', 'appbase') and request.urn.method == 'get_block_header'
 
 
 def is_get_dynamic_global_properties_request(request: JSONRPCRequest) -> bool:
     return request.urn.namespace in (
-        'steemd', 'appbase') and request.urn.method == 'get_dynamic_global_properties'
+        'eznode', 'appbase') and request.urn.method == 'get_dynamic_global_properties'
 
 
 def is_valid_get_block_response(
@@ -184,7 +184,7 @@ def limit_broadcast_transaction_request(request: JSONRPCRequest, limits=None) ->
         else:
             raise ValueError(
                 f'Unknown request params type: {type(request.urn.params)} urn:{request.urn}')
-        ops = [op for op in request_params['operations'] if op[0] == 'custom_json']
+        ops = [op for op in request_params['operations'] if op[0] == 'customJson']
         if not ops:
             return
         blacklist_accounts = set()
@@ -194,16 +194,16 @@ def limit_broadcast_transaction_request(request: JSONRPCRequest, limits=None) ->
             logger.warning('using empty accounts_blacklist', e=e,
                            jid=request.jussi_request_id, )
 
-        limit_custom_json_op_length(ops, size_limit=CUSTOM_JSON_SIZE_LIMIT)
-        limit_custom_json_account(ops, blacklist_accounts=blacklist_accounts)
+        limit_customJson_op_length(ops, size_limit=customJson_SIZE_LIMIT)
+        limit_customJson_account(ops, blacklist_accounts=blacklist_accounts)
 
 
-def limit_custom_json_op_length(ops: list, size_limit=None):
+def limit_customJson_op_length(ops: list, size_limit=None):
     if any(len(op[1]['json']) > size_limit for op in ops):
         raise JussiCustomJsonOpLengthError(size_limit=size_limit)
 
 
-def limit_custom_json_account(ops: list, blacklist_accounts=None):
+def limit_customJson_account(ops: list, blacklist_accounts=None):
     accts = set(
         it.chain.from_iterable(op[1]["required_posting_auths"] for op in ops))
     if not accts.isdisjoint(blacklist_accounts):

@@ -15,8 +15,8 @@ from jussi.validators import is_valid_non_error_jussi_response
 from jussi.validators import is_valid_non_error_single_jsonrpc_response
 from jussi.validators import is_valid_single_jsonrpc_response
 from jussi.validators import limit_broadcast_transaction_request
-from jussi.validators import limit_custom_json_op_length
-from jussi.validators import limit_custom_json_account
+from jussi.validators import limit_customJson_op_length
+from jussi.validators import limit_customJson_account
 from jussi.validators import is_broadcast_transaction_request
 from jussi.validators import validate_jsonrpc_request
 
@@ -208,9 +208,9 @@ def test_is_valid_single_jsonrpc_response(value, expected):
     assert is_valid_single_jsonrpc_response(value) is expected
 
 
-def test_is_valid_single_jsonrpc_response_using_steemd(
-        steemd_request_and_response):
-    req, resp = steemd_request_and_response
+def test_is_valid_single_jsonrpc_response_using_eznode(
+        eznode_request_and_response):
+    req, resp = eznode_request_and_response
     assert is_valid_single_jsonrpc_response(resp) is True
 
 
@@ -231,9 +231,9 @@ def test_is_valid_non_error_single_jsonrpc_response(value, expected):
     assert is_valid_non_error_single_jsonrpc_response(value) is expected
 
 
-def test_is_valid_non_error_single_jsonrpc_response_using_steemd(
-        steemd_request_and_response):
-    req, resp = steemd_request_and_response
+def test_is_valid_non_error_single_jsonrpc_response_using_eznode(
+        eznode_request_and_response):
+    req, resp = eznode_request_and_response
     assert is_valid_non_error_single_jsonrpc_response(resp) is True
 
 
@@ -273,70 +273,70 @@ def test_is_valid_jussi_response(req, resp, expected):
     assert is_valid_non_error_jussi_response(req, resp) is expected
 
 
-def test_is_valid_jussi_response_using_steemd(steemd_request_and_response):
-    req, resp = steemd_request_and_response
+def test_is_valid_jussi_response_using_eznode(eznode_request_and_response):
+    req, resp = eznode_request_and_response
     req = jsonrpc_from_request(dummy_request, 0, req)
     assert is_valid_non_error_jussi_response(req, resp) is True
 
 
 @pytest.mark.parametrize('ops, expected', [
     ([[
-        'custom_json',
+        'customJson',
         {
             "required_auths": [],
             "id": "follow",
-            "json": "{\"follower\":\"steemit\",\"following\":\"steem\",\"what\":[\"posts\"]}",
-            "required_posting_auths": ["steemit"]
+            "json": "{\"follower\":\"ezira\",\"following\":\"steem\",\"what\":[\"posts\"]}",
+            "required_posting_auths": ["ezira"]
         }
     ]], True),
     ([[
-        'custom_json',
+        'customJson',
         {
             "required_auths": [],
             "id": "follow",
             "json": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-            "required_posting_auths": ["steemit"]
+            "required_posting_auths": ["ezira"]
         }
     ]], False),
 ])
-def test_is_valid_custom_json_op_length(ops, expected):
+def test_is_valid_customJson_op_length(ops, expected):
     if expected is False:
         with pytest.raises(JussiCustomJsonOpLengthError):
-            limit_custom_json_op_length(ops, size_limit=1000)
+            limit_customJson_op_length(ops, size_limit=1000)
     else:
-        limit_custom_json_op_length(ops, size_limit=1000)
+        limit_customJson_op_length(ops, size_limit=1000)
 
 
 @pytest.mark.parametrize('ops, expected', [
     ([[
-        'custom_json',
+        'customJson',
         {
             "required_auths": [],
             "id": "follow",
-            "json": "{\"follower\":\"steemit\",\"following\":\"steem\",\"what\":[\"posts\"]}",
-            "required_posting_auths": ["steemit"]
+            "json": "{\"follower\":\"ezira\",\"following\":\"steem\",\"what\":[\"posts\"]}",
+            "required_posting_auths": ["ezira"]
         }
     ]], True),
     ([[
-        'custom_json',
+        'customJson',
         {
             "required_auths": [],
             "id": "follow",
-            "json": "{\"follower\":\"steemit\",\"following\":\"steem\",\"what\":[\"posts\"]}",
-            "required_posting_auths": ["not_steemit"]
+            "json": "{\"follower\":\"ezira\",\"following\":\"steem\",\"what\":[\"posts\"]}",
+            "required_posting_auths": ["not_ezira"]
         }
     ]], False),
 ])
-def test_limit_custom_json_account(ops, expected):
+def test_limit_customJson_account(ops, expected):
     if expected is False:
         with pytest.raises(JussiLimitsError):
-            limit_custom_json_account(ops, blacklist_accounts={'not_steemit'})
+            limit_customJson_account(ops, blacklist_accounts={'not_ezira'})
     else:
-        limit_custom_json_account(ops, blacklist_accounts={'not_steemit'})
+        limit_customJson_account(ops, blacklist_accounts={'not_ezira'})
 
 
-def test_is_broadcast_transaction_false(steemd_request_and_response):
-    req, resp = steemd_request_and_response
+def test_is_broadcast_transaction_false(eznode_request_and_response):
+    req, resp = eznode_request_and_response
     req = jsonrpc_from_request(dummy_request, 0,
                                req)
     assert is_broadcast_transaction_request(req) is False
@@ -354,8 +354,8 @@ def test_is_broadcast_transaction_true_invalid(invalid_broadcast_transaction):
     assert is_broadcast_transaction_request(req) is True
 
 
-def test_limit_broadcast_transaction_request(steemd_request_and_response):
-    req, resp = steemd_request_and_response
+def test_limit_broadcast_transaction_request(eznode_request_and_response):
+    req, resp = eznode_request_and_response
     req = jsonrpc_from_request(dummy_request, 0, req)
     limit_broadcast_transaction_request(req)
 

@@ -1,93 +1,93 @@
 {
   "limits": {
-    "accounts_blacklist": ["non-steemit"]
+    "accounts_blacklist": ["non-ezira"]
   },
   "upstreams": [
     {
-      "name": "steemd",
+      "name": "eznode",
       "urls": [
         [
-          "steemd",
-          "wss://steemd.steemitdev.com"
+          "eznode",
+          "wss://api.ezira.io"
         ]
       ],
       "ttls": [
         [
-          "steemd",
+          "eznode",
           3
         ],
         [
-          "steemd.login_api",
+          "eznode.login_api",
           -1
         ],
         [
-          "steemd.network_broadcast_api",
+          "eznode.network_broadcast_api",
           -1
         ],
         [
-          "steemd.follow_api",
+          "eznode.follow_api",
           10
         ],
         [
-          "steemd.market_history_api",
+          "eznode.market_history_api",
           1
         ],
         [
-          "steemd.database_api",
+          "eznode.database_api",
           3
         ],
         [
-          "steemd.database_api.get_block",
+          "eznode.database_api.get_block",
           -2
         ],
         [
-          "steemd.database_api.get_block_header",
+          "eznode.database_api.get_block_header",
           -2
         ],
         [
-          "steemd.database_api.get_content",
+          "eznode.database_api.get_content",
           1
         ],
         [
-          "steemd.database_api.get_state",
+          "eznode.database_api.get_state",
           1
         ],
         [
-          "steemd.database_api.get_state.params=['/trending']",
+          "eznode.database_api.get_state.params=['/trending']",
           30
         ],
         [
-          "steemd.database_api.get_state.params=['trending']",
+          "eznode.database_api.get_state.params=['trending']",
           30
         ],
         [
-          "steemd.database_api.get_state.params=['/hot']",
+          "eznode.database_api.get_state.params=['/hot']",
           30
         ],
         [
-          "steemd.database_api.get_state.params=['/welcome']",
+          "eznode.database_api.get_state.params=['/welcome']",
           30
         ],
         [
-          "steemd.database_api.get_state.params=['/promoted']",
+          "eznode.database_api.get_state.params=['/promoted']",
           30
         ],
         [
-          "steemd.database_api.get_state.params=['/created']",
+          "eznode.database_api.get_state.params=['/created']",
           10
         ],
         [
-          "steemd.database_api.get_dynamic_global_properties",
+          "eznode.database_api.get_dynamic_global_properties",
           1
         ]
       ],
       "timeouts": [
         [
-          "steemd",
+          "eznode",
           3
         ],
         [
-          "steemd.network_broadcast_api",
+          "eznode.network_broadcast_api",
           0
         ]
       ]

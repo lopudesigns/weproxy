@@ -7,9 +7,9 @@ __all__ = [
     "__author__",
     "__email__",
 ]
-__title__ = "jussi"
+__title__ = "ezproxy"
 __version__ = "0.1"
 __summary__ = ""
-__uri__ = "https://github.com/steemit/jussi"
-__author__ = "John Gerlock"
-__email__ = "jg@steemit.com"
+__uri__ = "https://github.com/lopudesigns/ezproxy"
+__author__ = "Lopu"
+__email__ = "lopu@ezira.io"

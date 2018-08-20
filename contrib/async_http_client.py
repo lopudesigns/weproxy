@@ -93,7 +93,7 @@ def chunkify(iterable, chunksize=3000):
 class AsyncClient(object):
     def __init__(self, *, url=None, **kwargs):
         self.url = url or os.environ.get(
-            'STEEMD_HTTP_URL', 'https://steemd.steemitdev.com')
+            'EZNODE_HTTP_URL', 'https://api.ezira.io')
         self.kwargs = kwargs
         self.session = kwargs.get('session', None)
         self.connector = get_in(kwargs, ['session', 'connector'])
@@ -234,7 +234,7 @@ class AsyncClient(object):
 
     @property
     def concurrent_connections(self):
-        """number of tcp connections to steemd"""
+        """number of tcp connections to eznode"""
         return self.connector.limit
 
     @property
@@ -337,7 +337,7 @@ if __name__ == '__main__':
     subparsers = parser.add_subparsers()
 
     parser.add_argument('--url', type=str,
-                        default='https://api.steemitdev.com')
+                        default='https://api.ezira.io')
     parser.add_argument('--start_block', type=int, default=1)
     parser.add_argument('--end_block', type=int, default=16_000_000)
     parser.add_argument('--batch_request_size', type=int, default=100)
