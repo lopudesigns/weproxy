@@ -1,93 +1,93 @@
 {
   "limits": {
-    "accounts_blacklist": ["non-ezira"]
+    "accounts_blacklist": ["non-WeYouMe"]
   },
   "upstreams": [
     {
-      "name": "eznode",
+      "name": "node",
       "urls": [
         [
-          "eznode",
-          "wss://api.ezira.io"
+          "node",
+          "wss://api.WeYouMe.io"
         ]
       ],
       "ttls": [
         [
-          "eznode",
+          "node",
           3
         ],
         [
-          "eznode.login_api",
+          "node.login_api",
           -1
         ],
         [
-          "eznode.network_broadcast_api",
+          "node.network_broadcast_api",
           -1
         ],
         [
-          "eznode.follow_api",
+          "node.follow_api",
           10
         ],
         [
-          "eznode.market_history_api",
+          "node.market_history_api",
           1
         ],
         [
-          "eznode.database_api",
+          "node.database_api",
           3
         ],
         [
-          "eznode.database_api.get_block",
+          "node.database_api.get_block",
           -2
         ],
         [
-          "eznode.database_api.get_block_header",
+          "node.database_api.get_block_header",
           -2
         ],
         [
-          "eznode.database_api.get_content",
+          "node.database_api.get_content",
           1
         ],
         [
-          "eznode.database_api.get_state",
+          "node.database_api.get_state",
           1
         ],
         [
-          "eznode.database_api.get_state.params=['/trending']",
+          "node.database_api.get_state.params=['/trending']",
           30
         ],
         [
-          "eznode.database_api.get_state.params=['trending']",
+          "node.database_api.get_state.params=['trending']",
           30
         ],
         [
-          "eznode.database_api.get_state.params=['/hot']",
+          "node.database_api.get_state.params=['/hot']",
           30
         ],
         [
-          "eznode.database_api.get_state.params=['/welcome']",
+          "node.database_api.get_state.params=['/welcome']",
           30
         ],
         [
-          "eznode.database_api.get_state.params=['/promoted']",
+          "node.database_api.get_state.params=['/promoted']",
           30
         ],
         [
-          "eznode.database_api.get_state.params=['/created']",
+          "node.database_api.get_state.params=['/created']",
           10
         ],
         [
-          "eznode.database_api.get_dynamic_global_properties",
+          "node.database_api.get_dynamic_global_properties",
           1
         ]
       ],
       "timeouts": [
         [
-          "eznode",
+          "node",
           3
         ],
         [
-          "eznode.network_broadcast_api",
+          "node.network_broadcast_api",
           0
         ]
       ]

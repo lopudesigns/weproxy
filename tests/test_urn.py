@@ -42,10 +42,10 @@ def test_parse_jrpc_errors(jsonrpc_request, expected):
         result = _parse_jrpc(jsonrpc_request)
 
 
-def test_parse_jrpc_namespace_is_eznode(eznode_request_and_response):
-    req, resp = eznode_request_and_response
+def test_parse_jrpc_namespace_is_node(node_request_and_response):
+    req, resp = node_request_and_response
     result = _parse_jrpc(req)
-    assert result['namespace'] == 'eznode'
+    assert result['namespace'] == 'node'
 
 
 def test_parse_jrpc_namespace_is_appbase(appbase_request_and_response):

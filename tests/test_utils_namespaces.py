@@ -17,30 +17,30 @@ def test_urns(urn_test_request_dict):
 
 
 @pytest.mark.parametrize("jsonrpc_request,expected", [
-    # eznode, bare_method
+    # node, bare_method
     ({'id': 1,
       'jsonrpc': '2.0',
       'method': 'get_account_count',
       'params': []},
-     'eznode.database_api.get_account_count.params=[]'
+     'node.database_api.get_account_count.params=[]'
      ),
-    # eznode, method=call
+    # node, method=call
     ({
         'id': 1,
         'jsonrpc': '2.0',
         'method': 'call',
         'params': ['database_api', 'get_account_count', []]
     },
-        'eznode.database_api.get_account_count.params=[]'
+        'node.database_api.get_account_count.params=[]'
     ),
-    # eznode, method=call, numeric api
+    # node, method=call, numeric api
     ({
         'id': 1,
         'jsonrpc': '2.0',
         'method': 'call',
         'params': [0, 'get_account_count', []]
     },
-        'eznode.database_api.get_account_count.params=[]'
+        'node.database_api.get_account_count.params=[]'
     ),
     # appbase, dotted method, condenser api
     ({
@@ -50,7 +50,7 @@ def test_urns(urn_test_request_dict):
     },
         'appbase.condenser_api.appbase_method.params=[]'
     ),
-    # eznode, condenser api, method=call
+    # node, condenser api, method=call
     ({
         'id': 1,
         'jsonrpc': '2.0',
@@ -107,9 +107,9 @@ def test_urn_params_empty_dict(jsonrpc_request, expected):
 
 
 @pytest.mark.parametrize("jsonrpc_request,expected", [
-    # eznode, bare_method
+    # node, bare_method
     ({'id': 1, 'jsonrpc': '2.0', 'method': 'get_dynamic_global_properties'},
-        'eznode.database_api.get_dynamic_global_properties'
+        'node.database_api.get_dynamic_global_properties'
      ),
     # appbase, dotted method, non-condenser api
     ({'id': 1, 'jsonrpc': '2.0', 'method': 'non_condenser_api.appbase_method'},
@@ -132,7 +132,7 @@ def test_urn_params_no_params(jsonrpc_request, expected):
     assert result == expected
 
 
-def test_invalid_numeric_eznode_api():
+def test_invalid_numeric_node_api():
     jsonrpc_request = {
         'id': 11,
         'jsonrpc': '2.0',
@@ -143,9 +143,9 @@ def test_invalid_numeric_eznode_api():
         result = str(from_request(jsonrpc_request))
 
 
-def test_urn_pairs(eznode_method_pairs):
-    old, new = eznode_method_pairs
+def test_urn_pairs(node_method_pairs):
+    old, new = node_method_pairs
     old_urn = str(from_request(old))
     new_urn = str(from_request(new))
     assert old_urn == new_urn
-    assert old_urn.startswith('eznode.database_api')
+    assert old_urn.startswith('node.database_api')

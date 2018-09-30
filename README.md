@@ -17,7 +17,7 @@ Content-Type: application/json
 ```
 
 ### Default Namespace
-Any json-rpc method with no period in the method name is presumed to be in the "eznode" namespace and will be forwarded to a eznode endpoint:
+Any json-rpc method with no period in the method name is presumed to be in the "node" namespace and will be forwarded to a node endpoint:
 
 ```
 POST / HTTP/1.1

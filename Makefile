@@ -2,7 +2,7 @@ SHELL := /bin/bash
 ROOT_DIR := $(shell pwd)
 
 PROJECT_NAME := $(notdir $(ROOT_DIR))
-PROJECT_DOCKER_TAG := eziranetwork/$(PROJECT_NAME)
+PROJECT_DOCKER_TAG := WeYouMe/$(PROJECT_NAME)
 PROJECT_DOCKER_RUN_ARGS := -p8080:8080  -p7777:7777 --env-file .env -v $(shell pwd)/DEV_config.json:/app/DEV_config.json
 
 PIPENV_VENV_IN_PROJECT := 1
@@ -132,9 +132,9 @@ mypy: ## run mypy type checking on python files
 	http --json :9000/ id:=1 jsonrpc=2.0 method=get_block params:='[1000]'
 
 
-.PHONY: test-local-eznode-calls
-test-local-eznode-calls:
-	pipenv run pytest -vv tests/test_responses.py::test_eznode_responses --jussiurl http://localhost:9000
+.PHONY: test-local-node-calls
+test-local-node-calls:
+	pipenv run pytest -vv tests/test_responses.py::test_node_responses --jussiurl http://localhost:9000
 
 .PHONY: test-local-appbase-calls
 test-local-appbase-calls:
@@ -146,11 +146,11 @@ test-local-appbase-translation-calls:
 
 .PHONY: test-live-dev-appbase-calls
 test-live-dev-appbase-calls:
-	pipenv run pytest -vv tests/test_responses.py::test_appbase_responses --jussiurl https://api.ezira.io
+	pipenv run pytest -vv tests/test_responses.py::test_appbase_responses --jussiurl https://api.WeYouMe.io
 
 .PHONY: test-live-staging-appbase-calls
 test-live-staging-appbase-calls:
-	pipenv run pytest -vv tests/test_responses.py::test_appbase_responses --jussiurl https://peer0.ezira.io:8090
+	pipenv run pytest -vv tests/test_responses.py::test_appbase_responses --jussiurl https://peer0.WeYouMe.io:8090
 
 
 

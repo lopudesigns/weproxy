@@ -44,10 +44,10 @@ def chunkify(iterable, chunksize=3000):
 
 
 class SimpleSteemAPIClient(object):
-    """Simple Ezira JSON-HTTP-RPC API
+    """Simple WeYouMe JSON-HTTP-RPC API
 
         This class serves as an abstraction layer for easy use of the
-        ezclient.
+        client.
 
     Args:
       str: url: url of the API server
@@ -79,8 +79,8 @@ class SimpleSteemAPIClient(object):
                  pool_block=False,
                  tcp_keepalive=True,
                  **kwargs):
-        url = url or os.environ.get('EZNODE_HTTP_URL',
-                                    'https://api.ezira.io')
+        url = url or os.environ.get('NODE_HTTP_URL',
+                                    'https://api.WeYouMe.io')
         self.url = url
         self.hostname = urlparse(url).hostname
         self.return_with_args = kwargs.get('return_with_args', False)

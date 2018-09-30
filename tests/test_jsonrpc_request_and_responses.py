@@ -22,11 +22,11 @@ correct_get_block_1000_response = {
     'jsonrpc_request, expected',
     [
         (
-            # single jsonrpc eznode request
+            # single jsonrpc node request
             dict(id=1, jsonrpc='2.0', method='get_block', params=[1000]),
             correct_get_block_1000_response
         ),
-        # batch jsronrpc eznode request
+        # batch jsronrpc node request
         (
             [
                 dict(id=1, jsonrpc='2.0', method='get_block', params=[1000]),
@@ -35,7 +35,7 @@ correct_get_block_1000_response = {
             [correct_get_block_1000_response, correct_get_block_1000_response]
         ),
         (
-            # single jsonrpc old-style eznode requests
+            # single jsonrpc old-style node requests
             dict(
                 id=1,
                 jsonrpc='2.0',
@@ -44,7 +44,7 @@ correct_get_block_1000_response = {
             correct_get_block_1000_response
         ),
         (
-            # batch jsonrpc old-style eznode request
+            # batch jsonrpc old-style node request
             [
                 dict(
                     id=1,
@@ -60,7 +60,7 @@ correct_get_block_1000_response = {
             [correct_get_block_1000_response, correct_get_block_1000_response]
         ),
         (
-            # batch jsonrpc mixed-style eznode request
+            # batch jsonrpc mixed-style node request
             [
                 dict(id=1, jsonrpc='2.0', method='get_block', params=[1000]),
                 dict(id=1, jsonrpc='2.0', method='call', params=[
@@ -69,7 +69,7 @@ correct_get_block_1000_response = {
             [correct_get_block_1000_response, correct_get_block_1000_response]
         )
     ])
-async def eznode_multi_format_requests(mocked_app_test_cli, jsonrpc_request, expected, eznode_jrpc_response_validator, mocker):
+async def node_multi_format_requests(mocked_app_test_cli, jsonrpc_request, expected, node_jrpc_response_validator, mocker):
 
     with mocker.patch('jussi.handlers.random',
                       getrandbits=lambda x: 1) as mocked_rand:
@@ -81,13 +81,13 @@ async def eznode_multi_format_requests(mocked_app_test_cli, jsonrpc_request, exp
         assert response.status == 200
         assert response.headers['Content-Type'] == 'application/json'
         json_response = await response.json()
-        assert eznode_jrpc_response_validator(json_response) is None
+        assert node_jrpc_response_validator(json_response) is None
         assert json_response == expected
 
 
-async def test_mocked_eznode_calls(mocked_app_test_cli, eznode_jrpc_response_validator, eznode_request_and_response, mocker):
+async def test_mocked_node_calls(mocked_app_test_cli, node_jrpc_response_validator, node_request_and_response, mocker):
     compare_key_only_ids = (6, 48)
-    jrpc_req, jrpc_resp = eznode_request_and_response
+    jrpc_req, jrpc_resp = node_request_and_response
 
     mocked_ws_conn, test_cli = mocked_app_test_cli
     mocked_ws_conn.recv.return_value = json.dumps(jrpc_resp)
@@ -97,7 +97,7 @@ async def test_mocked_eznode_calls(mocked_app_test_cli, eznode_jrpc_response_val
     assert response.headers['Content-Type'] == 'application/json'
     assert 'x-jussi-cache-hit' not in response.headers
     json_response = await response.json()
-    assert eznode_jrpc_response_validator(json_response) is None
+    assert node_jrpc_response_validator(json_response) is None
     assert 'error' not in json_response
     assert json_response['id'] == jrpc_req['id']
     if jrpc_req['id'] in compare_key_only_ids:

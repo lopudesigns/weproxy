@@ -208,9 +208,9 @@ def test_is_valid_single_jsonrpc_response(value, expected):
     assert is_valid_single_jsonrpc_response(value) is expected
 
 
-def test_is_valid_single_jsonrpc_response_using_eznode(
-        eznode_request_and_response):
-    req, resp = eznode_request_and_response
+def test_is_valid_single_jsonrpc_response_using_node(
+        node_request_and_response):
+    req, resp = node_request_and_response
     assert is_valid_single_jsonrpc_response(resp) is True
 
 
@@ -231,9 +231,9 @@ def test_is_valid_non_error_single_jsonrpc_response(value, expected):
     assert is_valid_non_error_single_jsonrpc_response(value) is expected
 
 
-def test_is_valid_non_error_single_jsonrpc_response_using_eznode(
-        eznode_request_and_response):
-    req, resp = eznode_request_and_response
+def test_is_valid_non_error_single_jsonrpc_response_using_node(
+        node_request_and_response):
+    req, resp = node_request_and_response
     assert is_valid_non_error_single_jsonrpc_response(resp) is True
 
 
@@ -273,8 +273,8 @@ def test_is_valid_jussi_response(req, resp, expected):
     assert is_valid_non_error_jussi_response(req, resp) is expected
 
 
-def test_is_valid_jussi_response_using_eznode(eznode_request_and_response):
-    req, resp = eznode_request_and_response
+def test_is_valid_jussi_response_using_node(node_request_and_response):
+    req, resp = node_request_and_response
     req = jsonrpc_from_request(dummy_request, 0, req)
     assert is_valid_non_error_jussi_response(req, resp) is True
 
@@ -285,8 +285,8 @@ def test_is_valid_jussi_response_using_eznode(eznode_request_and_response):
         {
             "required_auths": [],
             "id": "follow",
-            "json": "{\"follower\":\"ezira\",\"following\":\"steem\",\"what\":[\"posts\"]}",
-            "required_posting_auths": ["ezira"]
+            "json": "{\"follower\":\"WeYouMe\",\"following\":\"steem\",\"what\":[\"posts\"]}",
+            "required_posting_auths": ["WeYouMe"]
         }
     ]], True),
     ([[
@@ -295,7 +295,7 @@ def test_is_valid_jussi_response_using_eznode(eznode_request_and_response):
             "required_auths": [],
             "id": "follow",
             "json": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-            "required_posting_auths": ["ezira"]
+            "required_posting_auths": ["WeYouMe"]
         }
     ]], False),
 ])
@@ -313,8 +313,8 @@ def test_is_valid_customJson_op_length(ops, expected):
         {
             "required_auths": [],
             "id": "follow",
-            "json": "{\"follower\":\"ezira\",\"following\":\"steem\",\"what\":[\"posts\"]}",
-            "required_posting_auths": ["ezira"]
+            "json": "{\"follower\":\"WeYouMe\",\"following\":\"steem\",\"what\":[\"posts\"]}",
+            "required_posting_auths": ["WeYouMe"]
         }
     ]], True),
     ([[
@@ -322,21 +322,21 @@ def test_is_valid_customJson_op_length(ops, expected):
         {
             "required_auths": [],
             "id": "follow",
-            "json": "{\"follower\":\"ezira\",\"following\":\"steem\",\"what\":[\"posts\"]}",
-            "required_posting_auths": ["not_ezira"]
+            "json": "{\"follower\":\"WeYouMe\",\"following\":\"steem\",\"what\":[\"posts\"]}",
+            "required_posting_auths": ["not_protocol"]
         }
     ]], False),
 ])
 def test_limit_customJson_account(ops, expected):
     if expected is False:
         with pytest.raises(JussiLimitsError):
-            limit_customJson_account(ops, blacklist_accounts={'not_ezira'})
+            limit_customJson_account(ops, blacklist_accounts={'not_protocol'})
     else:
-        limit_customJson_account(ops, blacklist_accounts={'not_ezira'})
+        limit_customJson_account(ops, blacklist_accounts={'not_protocol'})
 
 
-def test_is_broadcast_transaction_false(eznode_request_and_response):
-    req, resp = eznode_request_and_response
+def test_is_broadcast_transaction_false(node_request_and_response):
+    req, resp = node_request_and_response
     req = jsonrpc_from_request(dummy_request, 0,
                                req)
     assert is_broadcast_transaction_request(req) is False
@@ -354,8 +354,8 @@ def test_is_broadcast_transaction_true_invalid(invalid_broadcast_transaction):
     assert is_broadcast_transaction_request(req) is True
 
 
-def test_limit_broadcast_transaction_request(eznode_request_and_response):
-    req, resp = eznode_request_and_response
+def test_limit_broadcast_transaction_request(node_request_and_response):
+    req, resp = node_request_and_response
     req = jsonrpc_from_request(dummy_request, 0, req)
     limit_broadcast_transaction_request(req)
 
